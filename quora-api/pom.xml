@@ -12,6 +12,14 @@
     <artifactId>quora-api</artifactId>
 
     <dependencies>
+
+        <!--To fix the postgres Driver initialization issues-->
+        <dependency>
+            <groupId>org.postgresql</groupId>
+            <artifactId>postgresql</artifactId>
+            <version>42.2.2</version>
+        </dependency>
+
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
