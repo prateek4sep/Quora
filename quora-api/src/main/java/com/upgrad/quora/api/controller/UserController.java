@@ -64,13 +64,12 @@ public class UserController {
     }
 
     /**
-     * This method is for a user to singin.
+     * This method takes a authorization string as parameter, decodes and generates an access token.
      *
-     * @param authorization is basic auth (base 64 encoded). Usage: Basic <Base 64 Encoded
-     *     username:password>
-     * @return SigninResponse which contains user id and a access-token in the response header.
-     * @throws AuthenticationFailedException ATH-001 if username doesn't exist, ATH-002 if password is
-     *     wrong.
+     * @param authorization Basic <Base 64 Encoded username:password>
+     * @return SigninResponse containing user id and a access-token.
+     * @throws AuthenticationFailedException Throws the error code ATH-001 if username doesn't exist,
+     * ATH-002 in case of incorrect password
      */
     @RequestMapping(
             method = RequestMethod.POST,
@@ -96,11 +95,11 @@ public class UserController {
     }
 
     /**
-     * This method is used to signout user.
+     * This method takes an accessToken to validate and sign the user out.
      *
      * @param accessToken Token used for authenticating the user.
      * @return UUID of the user who is signed out.
-     * @throws SignOutRestrictedException if the
+     * @throws SignOutRestrictedException if the accessToken is invalid.
      */
     @RequestMapping(
             method = RequestMethod.POST,
