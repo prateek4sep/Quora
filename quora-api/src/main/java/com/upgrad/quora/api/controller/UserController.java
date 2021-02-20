@@ -43,18 +43,7 @@ public class UserController {
     public ResponseEntity<SignupUserResponse> signup(SignupUserRequest signupUserRequest)
             throws SignUpRestrictedException {
 
-        UserEntity userEntity = new UserEntity();
-        userEntity.setFirstName(signupUserRequest.getFirstName());
-        userEntity.setLastName(signupUserRequest.getLastName());
-        userEntity.setUserName(signupUserRequest.getUserName());
-        userEntity.setEmail(signupUserRequest.getEmailAddress());
-        userEntity.setPassword(signupUserRequest.getPassword());
-        userEntity.setCountry(signupUserRequest.getCountry());
-        userEntity.setAboutMe(signupUserRequest.getAboutMe());
-        userEntity.setDob(signupUserRequest.getDob());
-        userEntity.setRole("nonadmin");
-        userEntity.setContactNumber(signupUserRequest.getContactNumber());
-
+        UserEntity userEntity = createNewUserEntity(signupUserRequest);
         UserEntity createdUserEntity = userAuthService.signup(userEntity);
         SignupUserResponse userResponse =
                 new SignupUserResponse()
@@ -66,7 +55,7 @@ public class UserController {
     /**
      * This method takes a authorization string as parameter, decodes and generates an access token.
      *
-     * @param authorization Basic <Base 64 Encoded username:password>
+     * @param authorization "Basic <Base 64 Encoded username:password>"
      * @return SigninResponse containing user id and a access-token.
      * @throws AuthenticationFailedException Throws the error code ATH-001 if username doesn't exist,
      * ATH-002 in case of incorrect password
@@ -111,5 +100,26 @@ public class UserController {
         SignoutResponse signoutResponse =
                 new SignoutResponse().id(userEntity.getUuid()).message("SIGNED OUT SUCCESSFULLY");
         return new ResponseEntity<SignoutResponse>(signoutResponse, HttpStatus.OK);
+    }
+
+    /**
+     * This method take the Sign up user request and creates a user entity.
+     *
+     * @param signupUserRequest
+     * @return
+     */
+    public UserEntity createNewUserEntity(SignupUserRequest signupUserRequest){
+        UserEntity userEntity = new UserEntity();
+        userEntity.setFirstName(signupUserRequest.getFirstName());
+        userEntity.setLastName(signupUserRequest.getLastName());
+        userEntity.setUserName(signupUserRequest.getUserName());
+        userEntity.setEmail(signupUserRequest.getEmailAddress());
+        userEntity.setPassword(signupUserRequest.getPassword());
+        userEntity.setCountry(signupUserRequest.getCountry());
+        userEntity.setAboutMe(signupUserRequest.getAboutMe());
+        userEntity.setDob(signupUserRequest.getDob());
+        userEntity.setRole("nonadmin");
+        userEntity.setContactNumber(signupUserRequest.getContactNumber());
+        return userEntity;
     }
 }
