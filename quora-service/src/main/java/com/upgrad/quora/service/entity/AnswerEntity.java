@@ -6,6 +6,8 @@ import java.time.ZonedDateTime;
 
 @Entity
 @Table(name = "answer")
+@NamedQueries({@NamedQuery(name="answerById" , query="select a from AnswerEntity a where a.uuid = :id"),
+        @NamedQuery(name="getAllAnswer", query = "select a from AnswerEntity a where a.question.uuid=:id")})
 public class AnswerEntity {
 
   @Id
@@ -17,7 +19,6 @@ public class AnswerEntity {
   @Size(max = 200)
   private String uuid;
 
-
   @Column(name = "ans")
   @Size(max = 255)
   private String ans;
@@ -28,6 +29,10 @@ public class AnswerEntity {
   @ManyToOne
   @JoinColumn(name = "user_id")
   private UserEntity userEntity;
+
+  @ManyToOne
+  @JoinColumn(name = "question_id")
+  private QuestionEntity question;
 
   public long getId() {
     return id;
@@ -76,9 +81,14 @@ public class AnswerEntity {
   public void setQuestion(QuestionEntity question) {
     this.question = question;
   }
+  public UserEntity getUserEntity() {
+    return userEntity;
+  }
 
-  @ManyToOne
-  @JoinColumn(name = "question_id")
-  private QuestionEntity question;
+  public void setUserEntity(UserEntity userEntity) {
+    this.userEntity = userEntity;
+  }
+
+
 
 }
