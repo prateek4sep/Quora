@@ -64,7 +64,7 @@ public class AnswerService {
    * @param answerEntity - AnswerEntity that to be edited
    * @param userAuthToken - authorization header containing the accessToken
    * @return - Deleted AnswerEntity
-   * @throws AuthorizationFailedException - throwed if the user is not authorized to edit the question
+   * @throws AuthorizationFailedException - throwed if the user is not authorized to edit the Answer
    * @throws AnswerNotFoundException - throwed if the answer requested for the edit is not present in DB
    */
 
