@@ -89,17 +89,5 @@ public class QuestionDao {
         entityManager.remove(questionEntity);
     }
 
-    /**
-     * Fetch a question by uuid.
-     *
-     * @param questionUuid uuid of question which need to fetch
-     * @return question entity and null if no question present for given uuid
-     */
-    public QuestionEntity getQuestion(final String questionUuid){
-        try {
-            return entityManager.createNamedQuery("questionByUuid", QuestionEntity.class).setParameter("uuid", questionUuid).getSingleResult();
-        } catch (NoResultException nre) {
-            return null;
-        }
-    }
+
 }
