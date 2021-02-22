@@ -68,7 +68,7 @@ public class QuestionDao {
      * @param userId - user's unique id
      * @return all questions based on user id and return null if no question for the user
      */
-    public List<QuestionEntity> getAllQuestionsByUser(final long userId){
+    public List<QuestionEntity> getAllQuestionsByUser(final Integer userId){
         try {
             return entityManager.createNamedQuery("questionByUserId", QuestionEntity.class).setParameter("userId", userId).getResultList();
         } catch (NoResultException nre) {
