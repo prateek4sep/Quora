@@ -23,6 +23,7 @@ public class UserAuthenticationService {
     @Autowired private UserAuthDao userAuthDao;
 
     @Autowired private PasswordCryptographyProvider passwordCryptographyProvider;
+
     /**
      * This service method assigns a UUID, sets an encrypted password and salt for the user signing up.
      * This method handle also exceptions in case of a duplicate username or if the user exists in the DB.
@@ -49,6 +50,7 @@ public class UserAuthenticationService {
         userEntity.setPassword(encryptedText[1]);
         return userDao.createUser(userEntity);
     }
+
     /**
      * Sign in method takes username and password as argument, create and sets an auth token and opens a session.
      *
@@ -109,6 +111,7 @@ public class UserAuthenticationService {
 
     /**
      * Check if the Username already exists in the DB.
+     *
      * @param userName
      * @return true/false
      */
@@ -118,6 +121,7 @@ public class UserAuthenticationService {
 
     /**
      * Checks if the email already exists in the DB.
+     *
      * @param email
      * @return true/false
      */

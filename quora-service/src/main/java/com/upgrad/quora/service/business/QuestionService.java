@@ -22,9 +22,10 @@ public class QuestionService {
     private CommonService commonService;
 
     /**
+     * This method takes the question content and creates an answer.
      *
      * @param questionEntity - the questionEntity to be persisted in db
-     * @return - persited question
+     * @return - persisted question
      */
     @Transactional(propagation = Propagation.REQUIRED)
     public QuestionEntity createQuestion(QuestionEntity questionEntity){
@@ -34,6 +35,7 @@ public class QuestionService {
     }
 
     /**
+     * This methods returns a list of all questions in the DB.
      *
      * @return - list of all questionEntities
      */
@@ -45,10 +47,11 @@ public class QuestionService {
 
 
     /**
+     * This method takes a questionId as argument and returns the corresponding question.
      *
      * @param uuid- uuid of the question to be fetched from the database
      * @return - questionEntity with the corresponding uuid
-     * @throws InvalidQuestionException - throwed if the question with the provided uuid not present
+     * @throws InvalidQuestionException - thrown if the question with the provided uuid not present
      */
     public QuestionEntity getQuestionByUuid(String uuid) throws InvalidQuestionException {
         QuestionEntity questionEntity = questionDao.getQuestionByUuid(uuid);
@@ -60,6 +63,7 @@ public class QuestionService {
     }
 
     /**
+     * Method to update the content of a question.
      *
      * @param questionEntity - questionEntity to be updated
      * @return updated questionEntity
@@ -70,7 +74,13 @@ public class QuestionService {
         return updatedQuestion;
     }
 
-
+    /**
+     * Validate whether is user is authorized to edit the question.
+     *
+     * @param userToEdit user requesting edit
+     * @param questionOwner owner of the question
+     * @throws AuthorizationFailedException
+     */
     public void authorizeEdit(UserEntity userToEdit,UserEntity questionOwner) throws AuthorizationFailedException {
         if(userToEdit.getId() != questionOwner.getId()){
             throw new AuthorizationFailedException("ATHR-003","Only the question owner can edit the question");
@@ -78,11 +88,11 @@ public class QuestionService {
     }
 
 
-  /**
+    /**
+     * Returns all the questions corresponding to a user.
      *
      * @param userUuid- uuid of user for which all question need to fetch
      * @return list of question for user
-     *
      */
     @Transactional(propagation = Propagation.REQUIRED)
     public List<QuestionEntity> getAllQuestionsByUser (final String userUuid) throws UserNotFoundException {
@@ -93,6 +103,7 @@ public class QuestionService {
     }
 
     /**
+     * This method takes questionId and auth token as argument and deletes the question after the user is verified.
      *
      * @param userAuthTokenEntity - authorized user entity
      * @param questionUuid - uuid of question which need to be deleted

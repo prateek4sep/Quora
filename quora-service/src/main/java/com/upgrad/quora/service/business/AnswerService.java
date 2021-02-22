@@ -13,7 +13,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.time.ZonedDateTime;
 import java.util.List;
 
 @Service
@@ -26,6 +25,7 @@ public class AnswerService {
   private  QuestionDao questionDao;
 
   /**
+   * This method takes question ID, answer entity and auth token and creates a new answer.
    *
    * @param userAuthTokenEntity - authorized user entity
    * @param answerEntity - New answer which need to be created
@@ -33,7 +33,9 @@ public class AnswerService {
    * @return answer entity which was created
    */
   @Transactional(propagation = Propagation.REQUIRED)
-  public AnswerEntity createAnswer(final UserAuthEntity userAuthTokenEntity, final AnswerEntity answerEntity, final String questionUuid) throws AuthorizationFailedException, InvalidQuestionException {
+  public AnswerEntity createAnswer(final UserAuthEntity userAuthTokenEntity, final AnswerEntity answerEntity, final String questionUuid)
+          throws AuthorizationFailedException, InvalidQuestionException {
+
     QuestionEntity questionEntity=questionDao.getQuestion(questionUuid);
     if(questionEntity==null){
       throw new InvalidQuestionException("QUES-001", "The question entered is invalid");
@@ -44,10 +46,11 @@ public class AnswerService {
   }
 
   /**
+   * This method takes a question ID and returns the associated answers.
    *
    * @param questionID - uuid of the question for which Fetch all Answers
    * @return - List of AnswerEntity
-   * @throws AuthorizationFailedException - throwed if the user is not authorized to edit the question
+   * @throws AuthorizationFailedException - thrown if the user is not authorized to edit the question
    * @throws InvalidQuestionException - throws exception if the Provided QuestionID Not Present in DB
    */
   public List<AnswerEntity> getAllAnswer(String questionID) throws AuthorizationFailedException, InvalidQuestionException {
@@ -60,16 +63,18 @@ public class AnswerService {
   }
 
   /**
+   * This method takes the answer Entity and auth token as a request and updates the answer.
    *
-   * @param answerEntity - AnswerEntity that to be edited
+   * @param answerEntity - AnswerEntity that is to be edited
    * @param userAuthToken - authorization header containing the accessToken
    * @return - Deleted AnswerEntity
-   * @throws AuthorizationFailedException - throwed if the user is not authorized to edit the Answer
-   * @throws AnswerNotFoundException - throwed if the answer requested for the edit is not present in DB
+   * @throws AuthorizationFailedException - thrown if the user is not authorized to edit the Answer
+   * @throws AnswerNotFoundException - thrown if the answer requested for the edit is not present in DB
    */
-
   @Transactional(propagation = Propagation.REQUIRED)
-  public AnswerEntity updateAnswer(AnswerEntity answerEntity,final UserAuthEntity userAuthToken) throws AuthorizationFailedException, AnswerNotFoundException {
+  public AnswerEntity updateAnswer(AnswerEntity answerEntity,final UserAuthEntity userAuthToken)
+          throws AuthorizationFailedException, AnswerNotFoundException {
+
     AnswerEntity answerByID = answerDao.getAnswerByID(answerEntity.getUuid());
 
     if(answerByID == null){
@@ -91,13 +96,13 @@ public class AnswerService {
   }
 
   /**
+   * This method takes the answer Entity and auth token as a request and deletes the answer after user is verified.
    *
    * @param answerID - uuid of Answer that to be deleted
    * @param userAuthToken - authorization header containing the accessToken
-   * @throws AuthorizationFailedException - throwed if the user is not authorized to edit the question
-   * @throws AnswerNotFoundException - throwed if the answer requested for the edit is not present in DB
+   * @throws AuthorizationFailedException - thrown if the user is not authorized to edit the question
+   * @throws AnswerNotFoundException - thrown if the answer requested for the edit is not present in DB
    */
-
   @Transactional(propagation = Propagation.REQUIRED)
   public void deleteAnswer(String answerID,final UserAuthEntity userAuthToken) throws AuthorizationFailedException, AnswerNotFoundException {
 
