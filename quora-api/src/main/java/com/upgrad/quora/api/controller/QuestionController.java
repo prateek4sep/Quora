@@ -71,24 +71,24 @@ public class QuestionController {
      */
 
     @RequestMapping(path = "/question/all",method = RequestMethod.GET,produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<List<QuestionResponse>> getAllQuestions(@RequestHeader("authorization") final String authHeader) throws AuthorizationFailedException {
+    public ResponseEntity<List<QuestionDetailsResponse>> getAllQuestions(@RequestHeader("authorization") final String authHeader) throws AuthorizationFailedException {
 //      check if the accessToken is valid and present in db
         UserAuthEntity userAuthTokenEntity = commonService.authorizeUser(authHeader);
 
 //      get all the questionEntities present in db
         List<QuestionEntity>questionEntities = questionService.getAllQuestions();
 //      create a QuestionResponse list
-        List <QuestionResponse> responseList = new ArrayList<>();
+        List <QuestionDetailsResponse> responseList = new ArrayList<>();
 
 //      iterate through questionEntities and create a corresponding questionResponse and push it to the responseList
         for(QuestionEntity questionEntity:questionEntities){
-            QuestionResponse response = new QuestionResponse();
+            QuestionDetailsResponse response = new QuestionDetailsResponse();
             response.id(questionEntity.getUuid());
-            response.status("QUESTION CREATED");
+            response.content(questionEntity.getContent());
             responseList.add(response);
         }
 
-        return new ResponseEntity<List<QuestionResponse>>(responseList,HttpStatus.OK);
+        return new ResponseEntity<List<QuestionDetailsResponse>>(responseList,HttpStatus.OK);
     }
 
     /**
