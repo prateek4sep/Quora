@@ -36,7 +36,7 @@ public class AnswerService {
   public AnswerEntity createAnswer(final UserAuthEntity userAuthTokenEntity, final AnswerEntity answerEntity, final String questionUuid)
           throws AuthorizationFailedException, InvalidQuestionException {
 
-    QuestionEntity questionEntity=questionDao.getQuestion(questionUuid);
+    QuestionEntity questionEntity=questionDao.getQuestionByUuid(questionUuid);
     if(questionEntity==null){
       throw new InvalidQuestionException("QUES-001", "The question entered is invalid");
     }
@@ -54,7 +54,7 @@ public class AnswerService {
    * @throws InvalidQuestionException - throws exception if the Provided QuestionID Not Present in DB
    */
   public List<AnswerEntity> getAllAnswer(String questionID) throws AuthorizationFailedException, InvalidQuestionException {
-    QuestionEntity question = questionDao.getQuestion(questionID);
+    QuestionEntity question = questionDao.getQuestionByUuid(questionID);
     if(question == null)
     {
       throw new InvalidQuestionException("QUES-001","The question with entered uuid whose details are to be seen does not exist");

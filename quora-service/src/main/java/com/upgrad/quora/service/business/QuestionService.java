@@ -113,7 +113,7 @@ public class QuestionService {
     public QuestionEntity deleteQuestion(final UserAuthEntity userAuthTokenEntity, final String questionUuid) throws AuthorizationFailedException, InvalidQuestionException {
 
 
-        QuestionEntity questionEntity=questionDao.getQuestion(questionUuid);
+        QuestionEntity questionEntity=questionDao.getQuestionByUuid(questionUuid);
         if(questionEntity==null){
             throw new InvalidQuestionException("QUES-001", "Entered question uuid does not exist");
         }
