@@ -1,7 +1,6 @@
 package com.upgrad.quora.service.dao;
 
 import com.upgrad.quora.service.entity.AnswerEntity;
-import com.upgrad.quora.service.entity.UserAuthEntity;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
@@ -17,6 +16,7 @@ public class AnswerDao {
   private EntityManager entityManager;
 
   /**
+   * Create a new answer.
    *
    * @param answerEntity- answer which need to be added
    * @return answer entity which was added with its id
@@ -27,6 +27,7 @@ public class AnswerDao {
   }
 
   /**
+   * Update an existing answer.
    *
    * @param answerEntity - answer that to be edited
    * @return Updated Answer
@@ -37,6 +38,7 @@ public class AnswerDao {
   }
 
     /**
+     * Get the list of all answers for a question.
      *
      * @param questionID - Question uuid for which neet to fetch all answers
      * @return - List of Answers
@@ -49,6 +51,7 @@ public class AnswerDao {
 
 
     /**
+     * Fetch an answer by its ID.
      *
      * @param answerUuid- answer uuid that to be fetched from DB
      * @return - Answer Entity
@@ -63,14 +66,12 @@ public class AnswerDao {
   }
 
     /**
+     * Delete an answer by its id.
      *
      * @param answerEntity - Answer Entity that to be deleted
      */
   public void deleteAnswer(AnswerEntity answerEntity){
       entityManager.remove(answerEntity);
   }
-
-
-
 
 }

@@ -15,6 +15,7 @@ public class QuestionDao {
     private EntityManager entityManager;
 
     /**
+     * Create a new answer.
      *
      * @param questionEntity questionEntity to be persisted
      * @return persisted questionEntity
@@ -25,7 +26,7 @@ public class QuestionDao {
     }
 
     /**
-     *
+     * Get a list of all questions from the DB
      * @return returns List of all questions in the database
      * if no questions present in db returns null
      */
@@ -39,8 +40,9 @@ public class QuestionDao {
     }
 
     /**
+     * Fetch question by uuid.
      *
-     * @param uuid - uuiod of the question to be fetched
+     * @param uuid - uuid of the question to be fetched
      * @return - if the question correspondent to the uuid is present in db return the questionEntity
      * or else return null
      */
@@ -54,6 +56,7 @@ public class QuestionDao {
     }
 
     /**
+     * Update a question.
      *
      * @param questionEntity - questionEntity with edited content
      * @return updated questionEntity
@@ -64,6 +67,7 @@ public class QuestionDao {
 
 
     /**
+     * Fetch all questions by the given user.
      *
      * @param userId - user's unique id
      * @return all questions based on user id and return null if no question for the user
@@ -77,6 +81,7 @@ public class QuestionDao {
     }
 
     /**
+     * Delete a question.
      *
      * @param questionEntity which needs to be deleted
      */
@@ -85,6 +90,7 @@ public class QuestionDao {
     }
 
     /**
+     * Fetch a question by uuid.
      *
      * @param questionUuid uuid of question which need to fetch
      * @return question entity and null if no question present for given uuid
